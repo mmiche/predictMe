@@ -19,6 +19,8 @@
 #
 #' @author Marcel Miché
 #
+#' @importFrom stats var
+#
 #' @examples
 #' \dontrun{
 #' # Simulate data set with binary outcome
@@ -82,14 +84,14 @@ binBinary <- function(x=NULL, measColumn=NULL, binWidth=20) {
     }
     
     # If column measColumn contains exactly two values, are these integer values?
-    if(any(x[,measColumn]%%1!=0 || is.na(x[,measColumn]))) {
+    if(any((x[,measColumn]%%1)!=0 | is.na(x[,measColumn]))) {
         stop("The function argument 'measColumn' must be a single integer number (1 or 2), showing which column of the data.frame contains the measured outcome, which are expected to be the 2 categories: 0 = absent, 1 = present.")
     }
     
     # If column measColumn contains two integers, transform to 0 and 1:
     if(!all(range(x[,measColumn], na.rm=TRUE) == c(0,1))) {
         measColumnMax <- max(x[,measColumn], na.rm = TRUE)
-        measColumnNin <- min(x[,measColumn], na.rm = TRUE)
+        measColumnMin <- min(x[,measColumn], na.rm = TRUE)
         idxNA <- is.na(x[,measColumn])
         idxMax <- x[,measColumn] == measColumnMax & !idxNA
         x[idxMax,measColumn] <- 1

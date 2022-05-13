@@ -12,6 +12,8 @@
 #
 #' @param n Sample size, defaults to 1000.
 #
+#' @param seed A single integer value. Setting a seed ensures reproducibility of a once simulated data set.
+#
 #' @param type A single character value, either 'continuous' or 'binary', depending on what scale the simulated outcome shall have.
 #
 #' @details The returned simulated data set will have as many predictors, as the user entered regression coefficients to the function argument 'coefs'. For instance, coefs = c(.5, -2, -.9) will result in three predictors x1, x2, and x3 in the returned data set.
@@ -21,6 +23,8 @@
 #' @return simDf A data.frame with one outcome column y, and as many predictor columns (named: x1, x2, …) as the user selected (default: 2). See \strong{Details}.
 #
 #' @author Marcel Miché
+#
+#' @importFrom stats var rnorm rbinom
 #
 #' @examples
 #' \dontrun{

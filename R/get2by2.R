@@ -4,7 +4,7 @@
 #
 #' @param measColumn A single integer number that denotes which of the two columns of function argument 'x' contains the measured outcome.
 #
-#' @param print Logical value, defaults to FALSE. If set TRUE, two 2by2 matrices will be printed with explanations of what they display.
+#' @param print2by2 Logical value, defaults to FALSE. If set TRUE, two 2by2 matrices will be printed with explanations of what they display.
 #
 #' @param xr A data.frame with exactly two columns, one of the columns must be the binary measured outcome, the other column must be the binary predicted outcome, based on some algorithm's predictions (see \strong{Details}).
 #
@@ -20,6 +20,8 @@
 #' }
 #
 #' @author Marcel Miché
+#
+#' @importFrom stats var
 #
 #' @examples
 #' \dontrun{
@@ -91,7 +93,7 @@ get2by2 <- function(xr, measColumn=NULL, print2by2=FALSE) {
     # If column measColumn contains two integers, transform to 0 and 1:
     if(!all(range(xr[,measColumn], na.rm=TRUE) == c(0,1))) {
         measColumnMax <- max(xr[,measColumn], na.rm = TRUE)
-        measColumnNin <- min(xr[,measColumn], na.rm = TRUE)
+        measColumnMin <- min(xr[,measColumn], na.rm = TRUE)
         idxNA <- is.na(xr[,measColumn])
         idxMax <- xr[,measColumn] == measColumnMax & !idxNA
         xr[idxMax,measColumn] <- 1
@@ -99,7 +101,7 @@ get2by2 <- function(xr, measColumn=NULL, print2by2=FALSE) {
         xr[idxMin,measColumn] <- 0
     }
     # -----------------------------------------
-    # Function argument 'print':
+    # Function argument 'print2by2':
     error.print2by2 <- tryCatch({
         errorSingleLogical(print2by2)
     }, error = function(e) {

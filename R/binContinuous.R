@@ -25,6 +25,8 @@
 #
 #' @author Marcel Miché
 #
+#' @importFrom utils head
+#
 #' @examples
 #' \dontrun{
 #' # Simulate data set with continuous outcome (use all default values)

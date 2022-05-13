@@ -11,7 +11,7 @@ get2by2(xr, measColumn = NULL, print2by2 = FALSE)
 
 \item{measColumn}{A single integer number that denotes which of the two columns of function argument 'x' contains the measured outcome.}
 
-\item{print}{Logical value, defaults to FALSE. If set TRUE, two 2by2 matrices will be printed with explanations of what they display.}
+\item{print2by2}{Logical value, defaults to FALSE. If set TRUE, two 2by2 matrices will be printed with explanations of what they display.}
 }
 \value{
 a list with five values:
