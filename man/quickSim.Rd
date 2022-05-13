@@ -25,6 +25,8 @@ quickSim(
 
 \item{errSD}{Standard deviation of the error, present in the simulated data, defaults to 3 (will be ignored, if function argument 'type' (see below) is set to 'binary').}
 
+\item{seed}{A single integer value. Setting a seed ensures reproducibility of a once simulated data set.}
+
 \item{type}{A single character value, either 'continuous' or 'binary', depending on what scale the simulated outcome shall have.}
 }
 \value{

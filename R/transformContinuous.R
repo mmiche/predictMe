@@ -1,5 +1,7 @@
 # transformContinuous
 #
+#' @importFrom stats coef lm var
+#
 #
 transformContinuous <- function(x=NULL, measColumn=NULL, computeRange = TRUE, range_x=c(0, 0)) {
     

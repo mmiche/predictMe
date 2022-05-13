@@ -31,6 +31,7 @@
 #
 #' @importFrom ggplot2 ggplot aes_string geom_tile geom_text scale_fill_continuous theme element_text
 #' @importFrom reshape2 melt
+#' @importFrom stats var
 #
 #' @examples
 #' \dontrun{
