@@ -1,0 +1,25 @@
+Package: predictMe
+Type: Package
+Title: predictMe - Visualize individual prediction performance.
+Version: 0.1
+Date/Publication: 2022-05-13
+Author: Marcel Miché
+Maintainer: Marcel Miché <marcel.miche.predictme@gmail.com>
+Description: This package enables researchers to visualize the prediction performance of any algorithm on the individual level (or close to it), yet instantly comprehensible, given that the predicted outcome is either binary or continuous.
+License: MIT
+Repository: CRAN
+URL: https://github.com/mmiche/predictMe
+Encoding: UTF-8
+Imports:
+    Rdpack,
+    ggplot2,
+    reshape2
+RdMacros: Rdpack
+LazyData: true
+RoxygenNote: 7.1.2
+Depends: 
+    R (>= 3.3.0)
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
