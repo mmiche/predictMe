@@ -11,6 +11,7 @@ title: README
 
 R package to visualize individual prediction performance
 
+<<<<<<< HEAD
 > 2022-05-14: Submitted package to CRAN, await manual check.
 
 `{r setup, include=FALSE} knitr::opts_chunk$set(echo = TRUE)`
@@ -319,3 +320,6 @@ prediction performance of that algorithm.
 Wickham H (2016). *ggplot2: Elegant Graphics for Data Analysis*.
 Springer-Verlag New York. ISBN 978-3-319-24277-4,
 <https://ggplot2.tidyverse.org>.
+=======
+> 2022-05-14: Submitted package to CRAN, await confirmation.
+>>>>>>> 39fa88fb96e268d72fbfac8e9f10a4d2b735cda2
