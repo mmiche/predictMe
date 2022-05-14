@@ -73,12 +73,19 @@ for transforming the scale.
 #### Function makeTablePlot (c)
 
 Let’s see what the function makeTablePlot produces.
-`{r eval=TRUE} # Demand the visualized performance, using makeTablePlot outLs <- makeTablePlot(x100c[["xTrans"]][,1:2], measColumn = 1, plot = TRUE) # Display names of the resulting list cbind(names(outLs))`
+```R
+# Demand the visualized performance, using makeTablePlot
+outLs <- makeTablePlot(x100c[["xTrans"]][,1:2], measColumn = 1, plot = TRUE)
+# Display names of the resulting list
+cbind(names(outLs))
+```
 
 Let’s get an impression of the output data, which is part of outLs (see
 previous code block):
 
-`{r eval=TRUE} # Show some lines of the data: head(x100c[["xTrans"]])`
+```R
+# Show some lines of the data: head(x100c[["xTrans"]])
+```
 
 Columns *measOutcomeBin* and *fittedBin* are plotted against one another
 in the introductory heatmaps.
@@ -92,7 +99,9 @@ identifier of each individual, which may be used as x-axis in the
 predictMe function makeDiffPlot (see below).
 
 Let’s have a look at the total counts overview:
-`{r eval=TRUE} # Display total count table outLs$totalCountTable`
+```R
+# Display total count table outLs$totalCountTable
+```
 
 The rows (*fittedBin*) display how many of the predicted outcome values
 fall into each bin (binWidth = 20 = 5 bins: 0-20, \>20-40, \>40-60,
@@ -109,19 +118,30 @@ even 2 bins.
 The next two tables display the relative frequencies of the total count
 table. First, taking the perspective of each row (each row sums up to
 1). This is displayed in the introductory heatmap on the left.
-`{r eval=TRUE} # Display row sum table outLs$rowSumTable`
+```R
+# Display row sum table outLs$rowSumTable
+```
 
 Second, taking the perspective of each column (each column sums up to
 1). This is displayed in the introductory heatmap on the right.
 
-`{r eval=TRUE} # Display column sum table outLs$colSumTable`
+```R
+# Display column sum table outLs$colSumTable
+```
 
 Depending on how many bins the user selected, the heatmaps’ information
 approximates the prediction performance on the individual level. For
 instance, set binWidth to 5 (instead of 20), to produce 20 bins (instead
 of 5 bins).
 
-`{r eval=TRUE} # Generate 20 equal bins. x100c5 <- binContinuous(x=lmDf, measColumn = 1, binWidth = 5) # Demand the visualized performance, using makeTablePlot. Setting plotCellRes # (Res = results) to FALSE means to not print the results into the cells. outLs5 <- makeTablePlot(x100c5[["xTrans"]][,1:2], measColumn = 1, plot = TRUE,                          plotCellRes = FALSE)`
+```R
+# Generate 20 equal bins.
+x100c5 <- binContinuous(x=lmDf, measColumn = 1, binWidth = 5)
+# Demand the visualized performance, using makeTablePlot. Setting plotCellRes
+# (Res = results) to FALSE means to not print the results into the cells.
+outLs5 <- makeTablePlot(x100c5[["xTrans"]][,1:2], measColumn = 1,
+                        plot = TRUE, plotCellRes = FALSE)
+```
 
 <img src="vignettes/Fig3.png" style="width:4.16667in" alt="Figure 3" />
 <img src="vignettes/Fig4.png" style="width:4.16667in" alt="Figure 4" />
@@ -133,7 +153,10 @@ perfect prediction). This can be done with the makeDiffPlot function.
 
 #### Function makeDiffPlot (c)
 
-`{r eval=TRUE} # Demand the visualized differences, using makeDiffPlot outDiffLs <- makeDiffPlot(x100c[["xTrans"]][,5:6], idCol = 2)`
+```R
+# Demand the visualized differences, using makeDiffPlot
+outDiffLs <- makeDiffPlot(x100c[["xTrans"]][,5:6], idCol = 2)
+```
 
 <figure>
 <img src="vignettes/Fig5.png" style="width:6.94444in" alt="Figure 5" /><figcaption aria-hidden="true">Figure 5</figcaption>
@@ -147,7 +170,10 @@ currently provides the function makeDiffPlotColor (see next subsection).
 
 #### Function makeDiffPlotColor (c)
 
-`{r eval=TRUE} # Use the function makeDiffPlotColor dpc <- makeDiffPlotColor(x100c[["xTrans"]][,5:7], idCol = 2, colorCol = 3)`
+```R
+# Use the function makeDiffPlotColor
+dpc <- makeDiffPlotColor(x100c[["xTrans"]][,5:7], idCol = 2, colorCol = 3)
+```
 
 <figure>
 <img src="vignettes/Fig6.png" style="width:6.94444in" alt="Figure 6" /><figcaption aria-hidden="true">Figure 6</figcaption>
@@ -157,7 +183,10 @@ In the **Details** of the documentation of the function
 makeDiffPlotColor, I recommend to use the ggplot2 function facet_wrap,
 to make the colorized plot easier to comprehend:
 
-`{r eval=TRUE} # Use makeDiffPlotColor output and add a 'facet' dpcFacet <- dpc$diffPlotColor + ggplot2::facet_wrap(~absBinDiff)`
+```R
+# Use makeDiffPlotColor output and add a 'facet'
+dpcFacet <- dpc$diffPlotColor + ggplot2::facet_wrap(~absBinDiff)
+```
 
 <figure>
 <img src="vignettes/Fig7.png" style="width:6.94444in" alt="Figure 7" /><figcaption aria-hidden="true">Figure 7</figcaption>
@@ -198,7 +227,19 @@ continuous (after being rescaled (linearly transformed) to range between
 
 #### Functions quickSim and binBinary (b)
 
-`{r eval=TRUE} # Simulate data set with binary outcome dfBinary <- quickSim(type="binary") # Use logistic regression as algorithm to predict the response variable # (estimated probability of outcome being present). glmRes <- glm(y~x1+x2,data=dfBinary,family="binomial") # Extract measured outcome and the predicted probability (fitted values) # from the logistic regression output, put both in a data.frame. glmDf <- data.frame(measOutcome=glmRes$model$y,                     fitted=glmRes$fitted.values) # Apply function binBinary, set binWidth to 20. x100b <- binBinary(x=glmDf, measColumn = 1, binWidth = 20)`
+```R
+# Simulate data set with binary outcome
+dfBinary <- quickSim(type="binary")
+# Use logistic regression as algorithm to predict the response variable
+# (estimated probability of outcome being present).
+glmRes <- glm(y~x1+x2,data=dfBinary,family="binomial")
+# Extract measured outcome and the predicted probability (fitted values)
+# from the logistic regression output, put both in a data.frame.
+glmDf <- data.frame(measOutcome=glmRes$model$y,
+                    fitted=glmRes$fitted.values)
+# Apply function binBinary, set binWidth to 20.
+x100b <- binBinary(x=glmDf, measColumn = 1, binWidth = 20)
+```
 
 Another difference between the binary and the continuous outcome is how
 to compare the algorithm’s predictions with the measured outcome. Having
@@ -212,7 +253,13 @@ is computed for each bin. This is the basis for comparing the observed
 frequency of the outcome with the respective bin. Let’s look at the data
 to clarify what this means:
 
-`{r eval=TRUE} # Use part of the output of function binBinary, in particular: Display # one row per bin (binWidth = 20 = 5 bins) idx1RowPerBin <- match((1:5), x100b[["xTrans"]]$measOutcome) # Display only the first 4 columns x100b[["xTrans"]][idx1RowPerBin,1:4]`
+```R
+# Use part of the output of function binBinary, in particular: Display
+# one row per bin (binWidth = 20 = 5 bins)
+idx1RowPerBin <- match((1:5), x100b[["xTrans"]]$measOutcome)
+# Display only the first 4 columns
+x100b[["xTrans"]][idx1RowPerBin,1:4]
+```
 
 Ignore the line numbers 3, 17, …, 1.
 
@@ -232,7 +279,9 @@ bins perfectly align with the bins of the relative frequencies of the
 measured binary outcome (see introductory heatmaps: Value 1 across the
 diagonal).
 
-`{r eval=TRUE} # Summary of column fittedPerc for the first bin idxFirstBin <- x100b[["xTrans"]]$measOutcome==1 summary(x100b[["xTrans"]][idxFirstBin,"fittedPerc"])`
+```R
+# Summary of column fittedPerc for the first bin idxFirstBin <- x100b[["xTrans"]]$measOutcome==1 summary(x100b[["xTrans"]][idxFirstBin,"fittedPerc"])
+```
 
 In the first bin the predicted probabilities range between 0.004 percent
 and 19.76 percent.
@@ -249,11 +298,17 @@ outcomes and for continuous outcomes.
 
 #### Function makeTablePlot (b)
 
-`{r eval=TRUE} # Demand the visualized performance, using makeTablePlot outLs <- makeTablePlot(x100b[["xTrans"]][,1:2], measColumn = 1, plot = TRUE)`
+```R
+# Demand the visualized performance, using makeTablePlot
+outLs <- makeTablePlot(x100b[["xTrans"]][,1:2], measColumn = 1, plot = TRUE)
+```
 
 #### Function makeDiffPlot (b)
 
-`{r eval=TRUE} # Demand the visualized differences, using makeDiffPlot outDiffLs <- makeDiffPlot(x100b[["xTrans"]][,5:6], idCol = 2)`
+```R
+# Demand the visualized differences, using makeDiffPlot
+outDiffLs <- makeDiffPlot(x100b[["xTrans"]][,5:6], idCol = 2)
+```
 
 <figure>
 <img src="vignettes/Fig10.png" style="width:6.94444in" alt="Figure 10" /><figcaption aria-hidden="true">Figure 10</figcaption>
@@ -270,13 +325,20 @@ futile. Let’s check: If the column *absBinDiff* has only one factor
 level, then colorizing would not make sense in terms of obtaining more
 detailed information, compared to figure 10.
 
-`{r eval=TRUE} # How many levels? nlevels(x100b[["xTrans"]][,"absDiffBins"])`
+```R
+# How many levels? nlevels(x100b[["xTrans"]][,"absDiffBins"])
+```
 
 As suspected, one factor level. Better use real data, I guess. But wait.
 Let’s just select more bins, say 25? Then check the number of levels (we
 want color, damn it!).
 
-`{r eval=TRUE} # Apply function binBinary, set binWidth to 4. x100b4 <- binBinary(x=glmDf, measColumn = 1, binWidth = 4) # How many levels? nlevels(x100b4[["xTrans"]][,"absDiffBins"])`
+```
+# Apply function binBinary, set binWidth to 4.
+x100b4 <- binBinary(x=glmDf, measColumn = 1, binWidth = 4)
+# How many levels?
+nlevels(x100b4[["xTrans"]][,"absDiffBins"])
+```
 
 Was that so hard?
 
@@ -291,7 +353,12 @@ simulated data.
 
 #### Function makeDiffPlotColor (b)
 
-`{r eval=TRUE} # dpb: difference plot binary dpb <- makeDiffPlotColor(x100b4[["xTrans"]][,5:7], idCol = 2, colorCol = 3) # Use makeDiffPlotColor output and add a 'facet' dpbFacet <- dpb$diffPlotColor + ggplot2::facet_wrap(~absDiffBins)`
+```R
+# dpb: difference plot binary
+dpb <- makeDiffPlotColor(x100b4[["xTrans"]][,5:7], idCol = 2, colorCol = 3)
+# Use makeDiffPlotColor output and add a 'facet'
+dpbFacet <- dpb$diffPlotColor + ggplot2::facet_wrap(~absDiffBins)
+```
 
 <figure>
 <img src="vignettes/Fig13.png" style="width:6.94444in" alt="Figure 13: Colorized plot 1" /><figcaption aria-hidden="true">Figure 13: Colorized plot 1</figcaption>
