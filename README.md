@@ -84,7 +84,8 @@ Let’s get an impression of the output data, which is part of outLs (see
 previous code block):
 
 ```R
-# Show some lines of the data: head(x100c[["xTrans"]])
+# Show some lines of the data:
+head(x100c[["xTrans"]])
 ```
 
 Columns *measOutcomeBin* and *fittedBin* are plotted against one another
@@ -100,7 +101,8 @@ predictMe function makeDiffPlot (see below).
 
 Let’s have a look at the total counts overview:
 ```R
-# Display total count table outLs$totalCountTable
+# Display total count table
+outLs$totalCountTable
 ```
 
 The rows (*fittedBin*) display how many of the predicted outcome values
@@ -119,14 +121,16 @@ The next two tables display the relative frequencies of the total count
 table. First, taking the perspective of each row (each row sums up to
 1). This is displayed in the introductory heatmap on the left.
 ```R
-# Display row sum table outLs$rowSumTable
+# Display row sum table
+outLs$rowSumTable
 ```
 
 Second, taking the perspective of each column (each column sums up to
 1). This is displayed in the introductory heatmap on the right.
 
 ```R
-# Display column sum table outLs$colSumTable
+# Display column sum table
+outLs$colSumTable
 ```
 
 Depending on how many bins the user selected, the heatmaps’ information
@@ -280,7 +284,9 @@ measured binary outcome (see introductory heatmaps: Value 1 across the
 diagonal).
 
 ```R
-# Summary of column fittedPerc for the first bin idxFirstBin <- x100b[["xTrans"]]$measOutcome==1 summary(x100b[["xTrans"]][idxFirstBin,"fittedPerc"])
+# Summary of column fittedPerc for the first bin
+idxFirstBin <- x100b[["xTrans"]]$measOutcome==1
+summary(x100b[["xTrans"]][idxFirstBin,"fittedPerc"])
 ```
 
 In the first bin the predicted probabilities range between 0.004 percent
@@ -326,7 +332,8 @@ level, then colorizing would not make sense in terms of obtaining more
 detailed information, compared to figure 10.
 
 ```R
-# How many levels? nlevels(x100b[["xTrans"]][,"absDiffBins"])
+# How many levels?
+nlevels(x100b[["xTrans"]][,"absDiffBins"])
 ```
 
 As suspected, one factor level. Better use real data, I guess. But wait.
