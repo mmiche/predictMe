@@ -1,20 +1,8 @@
----
-author: Marcel Miché
-date: 5/14/2022
-output:
-  md_document:
-    variant: gfm
-title: README
----
-
 # predictMe
 
 R package to visualize individual prediction performance
 
-<<<<<<< HEAD
 > 2022-05-14: Submitted package to CRAN, await manual check.
-
-`{r setup, include=FALSE} knitr::opts_chunk$set(echo = TRUE)`
 
 ## Why?
 
@@ -49,13 +37,26 @@ in each cell.
 
 ## How to?
 
-`{r eval=TRUE} library(predictMe)`
+```R
+library(predictMe)
+```
 
 ### Continuous (c) outcome
 
 #### Functions quickSim and binContinuous (c)
 
-`{r eval=TRUE} # Simulate data set with continuous outcome (use all default values) dfContinuous <- quickSim() # Use multiple linear regression as algorithm to predict the outcome. lmRes <- lm(y~x1+x2,data=dfContinuous) # Extract measured outcome and the predicted outcome (fitted values) # from the regression output, put both in a data.frame. lmDf <- data.frame(measOutcome=lmRes$model$y,                    fitted=lmRes$fitted.values) # Generate 5 equal bins (transformed outcome 0-100, bin width 20, # yields 5 bins). x100c <- binContinuous(x=lmDf, measColumn = 1, binWidth = 20)`
+```R
+# Simulate data set with continuous outcome (use all default values)
+dfContinuous <- quickSim()
+# Use multiple linear regression as algorithm to predict the outcome.
+lmRes <- lm(y~x1+x2,data=dfContinuous)
+# Extract measured outcome and the predicted outcome (fitted values)
+# from the regression output, put both in a data.frame.
+lmDf <- data.frame(measOutcome=lmRes$model$y,
+                   fitted=lmRes$fitted.values)
+# Generate 5 equal bins (transformed outcome 0-100, bin width 20, # yields 5 bins).
+x100c <- binContinuous(x=lmDf, measColumn = 1, binWidth = 20)
+```
 
 Important: The function **binContinuous** rescales the original outcome
 scale (via linear transformation), so that it ranges between 0 and 100.
