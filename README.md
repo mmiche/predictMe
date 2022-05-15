@@ -80,12 +80,35 @@ outLs <- makeTablePlot(x100c[["xTrans"]][,1:2], measColumn = 1, plot = TRUE)
 cbind(names(outLs))
 ```
 
+```
+Output in R console
+     [,1]              
+[1,] "totalCountTable" 
+[2,] "rowSumTable"     
+[3,] "colSumTable"     
+[4,] "rowSumTable_melt"
+[5,] "colSumTable_melt"
+[6,] "rowSumTable_plot"
+[7,] "colSumTable_plot"
+```
+
 Let’s get an impression of the output data, which is part of outLs (see
 previous code block):
 
 ```R
 # Show some lines of the data:
 head(x100c[["xTrans"]])
+```
+
+```
+Output in R console
+  measOutcomeBin fittedBin measOutcome   fitted        diff xAxisIds absBinDiff
+1              3         3    49.07609 57.74684  -8.6707498        1          0
+2              3         4    44.05657 63.12596 -19.0693914        2          1
+3              3         2    52.56371 36.47623  16.0874868        3          1
+4              4         4    68.05227 63.98939   4.0628725        4          0
+5              3         3    52.96387 53.83204  -0.8681698        5          0
+6              2         2    36.07562 28.75503   7.3205928        6          0
 ```
 
 Columns *measOutcomeBin* and *fittedBin* are plotted against one another
@@ -103,6 +126,17 @@ Let’s have a look at the total counts overview:
 ```R
 # Display total count table
 outLs$totalCountTable
+```
+
+```
+Output in R console
+         measOutcomeBin
+fittedBin   1   2   3   4   5
+        1   5   2   0   0   0
+        2  22 114  50   1   0
+        3   2 101 350 129   5
+        4   0   3  64 120  20
+        5   0   0   0   0  12
 ```
 
 The rows (*fittedBin*) display how many of the predicted outcome values
@@ -125,12 +159,34 @@ table. First, taking the perspective of each row (each row sums up to
 outLs$rowSumTable
 ```
 
+```
+Output in R console
+         measOutcomeBin
+fittedBin           1           2           3           4           5
+        1 0.714285714 0.285714286 0.000000000 0.000000000 0.000000000
+        2 0.117647059 0.609625668 0.267379679 0.005347594 0.000000000
+        3 0.003407155 0.172061329 0.596252129 0.219761499 0.008517888
+        4 0.000000000 0.014492754 0.309178744 0.579710145 0.096618357
+        5 0.000000000 0.000000000 0.000000000 0.000000000 1.000000000
+```
+
 Second, taking the perspective of each column (each column sums up to
 1). This is displayed in the introductory heatmap on the right.
 
 ```R
 # Display column sum table
 outLs$colSumTable
+```
+
+```
+Output in R console
+         measOutcomeBin
+fittedBin           1           2           3           4           5
+        1 0.172413793 0.009090909 0.000000000 0.000000000 0.000000000
+        2 0.758620690 0.518181818 0.107758621 0.004000000 0.000000000
+        3 0.068965517 0.459090909 0.754310345 0.516000000 0.135135135
+        4 0.000000000 0.013636364 0.137931034 0.480000000 0.540540541
+        5 0.000000000 0.000000000 0.000000000 0.000000000 0.324324324
 ```
 
 Depending on how many bins the user selected, the heatmaps’ information
@@ -265,7 +321,17 @@ idx1RowPerBin <- match((1:5), x100b[["xTrans"]]$measOutcome)
 x100b[["xTrans"]][idx1RowPerBin,1:4]
 ```
 
-Ignore the line numbers 3, 17, …, 1.
+```
+Output in R console
+   measOutcome fitted measOutcomePerc fittedPerc
+3            1      1        7.692308   4.298254
+17           2      2       31.313131  30.805328
+16           3      3       46.987952  59.066078
+12           4      4       66.666667  73.577654
+1            5      5       95.333333  96.002061
+```
+
+Ignore the line numbers 3, 17, ..., 1.
 
 For instance, the first bin of predicted probabilities (column *fitted*)
 ranges between 0 and 0.2 (or 0 and 20, in percent). In this bin, the
@@ -287,6 +353,12 @@ diagonal).
 # Summary of column fittedPerc for the first bin
 idxFirstBin <- x100b[["xTrans"]]$measOutcome==1
 summary(x100b[["xTrans"]][idxFirstBin,"fittedPerc"])
+```
+
+```
+Output in R console
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+ 0.003784  0.990428  4.364189  6.311213 10.960193 19.756161
 ```
 
 In the first bin the predicted probabilities range between 0.004 percent
@@ -336,6 +408,11 @@ detailed information, compared to figure 10.
 nlevels(x100b[["xTrans"]][,"absDiffBins"])
 ```
 
+```
+Output in R console
+[1] 1
+```
+
 As suspected, one factor level. Better use real data, I guess. But wait.
 Let’s just select more bins, say 25? Then check the number of levels (we
 want color, damn it!).
@@ -345,6 +422,11 @@ want color, damn it!).
 x100b4 <- binBinary(x=glmDf, measColumn = 1, binWidth = 4)
 # How many levels?
 nlevels(x100b4[["xTrans"]][,"absDiffBins"])
+```
+
+```
+Output in R console
+[1] 5
 ```
 
 Was that so hard?
