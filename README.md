@@ -70,7 +70,7 @@ been obtained, the user may ignore the argument range_x, meaning that
 **binContinuous** will compute the range internally and use the result
 for transforming the scale.
 
-Let’s get an impression of the output data, which is part of outLs (produced by the function binContinuous):
+Let’s get an impression of the output data, which is part of x100c (see previous code block):
 
 ```R
 # Show some lines of the data:
