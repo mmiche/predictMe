@@ -70,28 +70,6 @@ been obtained, the user may ignore the argument range_x, meaning that
 **binContinuous** will compute the range internally and use the result
 for transforming the scale.
 
-#### Function makeTablePlot (c)
-
-Let’s see what the function makeTablePlot produces.
-```R
-# Demand the visualized performance, using makeTablePlot
-outLs <- makeTablePlot(x100c[["xTrans"]][,1:2], measColumn = 1, plot = TRUE)
-# Display names of the resulting list
-cbind(names(outLs))
-```
-
-```
-Output in R console
-     [,1]              
-[1,] "totalCountTable" 
-[2,] "rowSumTable"     
-[3,] "colSumTable"     
-[4,] "rowSumTable_melt"
-[5,] "colSumTable_melt"
-[6,] "rowSumTable_plot"
-[7,] "colSumTable_plot"
-```
-
 Let’s get an impression of the output data, which is part of outLs (produced by the function binContinuous):
 
 ```R
@@ -120,6 +98,28 @@ The column *diff* displays the difference between the columns
 *measOutcome* and *fitted*. The column *xAxisIds* displays the unique
 identifier of each individual, which may be used as x-axis in the
 predictMe function makeDiffPlot (see below).
+
+#### Function makeTablePlot (c)
+
+Let’s see what the function makeTablePlot produces.
+```R
+# Demand the visualized performance, using makeTablePlot
+outLs <- makeTablePlot(x100c[["xTrans"]][,1:2], measColumn = 1, plot = TRUE)
+# Display names of the resulting list
+cbind(names(outLs))
+```
+
+```
+Output in R console
+     [,1]              
+[1,] "totalCountTable" 
+[2,] "rowSumTable"     
+[3,] "colSumTable"     
+[4,] "rowSumTable_melt"
+[5,] "colSumTable_melt"
+[6,] "rowSumTable_plot"
+[7,] "colSumTable_plot"
+```
 
 Let’s have a look at the total counts overview:
 ```R
