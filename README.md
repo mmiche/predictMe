@@ -92,8 +92,7 @@ Output in R console
 [7,] "colSumTable_plot"
 ```
 
-Let’s get an impression of the output data, which is part of outLs (see
-previous code block):
+Let’s get an impression of the output data, which is part of outLs (produced by the function binContinuous):
 
 ```R
 # Show some lines of the data:
