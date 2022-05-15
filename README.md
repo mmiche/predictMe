@@ -457,6 +457,7 @@ dpbFacet <- dpb$diffPlotColor + ggplot2::facet_wrap(~absDiffBins)
 <img src="vignettes/Fig14.png" style="width:6.94444in" alt="Figure 14: Colorized plot 2, having added the ggplot2 function facet_wrap" /><figcaption aria-hidden="true">Figure 14: Colorized plot 2, having added the ggplot2 function facet_wrap</figcaption>
 </figure>
 
+
 For further explanations regarding the main intended purpose of this
 predictMe package, please see this package’s documentation, that is, in
 the documentation, click on the predictMe documentation.
