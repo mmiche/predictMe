@@ -221,6 +221,7 @@ outDiffLs <- makeDiffPlot(x100c[["xTrans"]][,5:6], idCol = 2)
 <img src="vignettes/Fig5.png" style="width:6.94444in" alt="Figure 5: Differences between measured and predicted outcome (y-axis) for each individual (x-axis)." /><figcaption aria-hidden="true">Figure 5: Differences between measured and predicted outcome (y-axis) for each individual (x-axis).</figcaption>
 </figure>
 
+
 The x-axis (*xAxisIds*) shows all subjects, in this simulated data set: 1000. The y-axis (*diff*) shows the differences between the measures and the predicted outcome of each subject, using the linearly transformed scale between 0 and 100. The red dashed line shows the perfect prediction (where measured and predicted outcome are exactly alike).
 
 According to the total count table (binWidth = 20 = 5 bins), there were some cases that were not 1 bin, but even 2 bins away from the bull's eye. Who are they? What is going on there? For finding clues about such questions, this pilot version of the predictMe package (version 0.1) currently provides the function makeDiffPlotColor (see next subsection).
@@ -236,6 +237,7 @@ dpc <- makeDiffPlotColor(x100c[["xTrans"]][,5:7], idCol = 2, colorCol = 3)
 <img src="vignettes/Fig6.png" style="width:6.94444in" alt="Figure 6: Same as figure 5, yet colorized due to the absolute bin difference that was computed for each individual." /><figcaption aria-hidden="true">Figure 6: Same as figure 5, yet colorized due to the absolute bin difference that was computed for each individual.</figcaption>
 </figure>
 
+
 In the **Details** of the documentation of the function
 makeDiffPlotColor, I recommend to use the ggplot2 function facet_wrap,
 to make the colorized plot easier to comprehend:
@@ -248,6 +250,7 @@ dpcFacet <- dpc$diffPlotColor + ggplot2::facet_wrap(~absBinDiff)
 <figure>
 <img src="vignettes/Fig7.png" style="width:6.94444in" alt="Figure 7: Points of figure 6, separated by absolute bin differences." /><figcaption aria-hidden="true">Figure 7: Points of figure 6, separated by absolute bin differences.</figcaption>
 </figure>
+
 
 Such and probably many other detailed investigations could be conducted, if one wanted to focus on several aspects of the individual prediction performance, be it particularly accurate predictions or particularly inaccurate ones, or in between.
 
@@ -341,6 +344,7 @@ outDiffLs <- makeDiffPlot(x100b[["xTrans"]][,5:6], idCol = 2)
 <figure>
 <img src="vignettes/Fig10.png" style="width:6.94444in" alt="Figure 10: Differences between mean event rate and predicted outcome probability (y-axis) for each individual (x-axis)." /><figcaption aria-hidden="true">Figure 10: Differences between mean event rate and predicted outcome probability (y-axis) for each individual (x-axis).</figcaption>
 </figure>
+
 
 When looking at the individual differences (predicted probabilities in percent; see y-axis *diffPerc*), we see that perfection in one plot (the introductory heatmaps for the binary outcome) must not imply perfection in another plot, which - as noted - in the real (probabilistic) world is impossible.
 
