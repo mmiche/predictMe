@@ -208,10 +208,7 @@ outLs5 <- makeTablePlot(x100c5[["xTrans"]][,1:2], measColumn = 1,
 <img src="vignettes/Fig3.png" style="width:4.16667in" alt="Figure 3" />
 <img src="vignettes/Fig4.png" style="width:4.16667in" alt="Figure 4" />
 
-Approximating the individual level prediction performance is one way to
-go. To complement this, the user may want to directly plot the
-individual deviations from the zero difference line (deterministically
-perfect prediction). This can be done with the makeDiffPlot function.
+Approximating the individual level prediction performance is one way to go. To complement this, the user may want to directly plot the individual deviations from the zero difference line (deterministically perfect prediction). This can be done with the makeDiffPlot function.
 
 #### Function makeDiffPlot (c)
 
@@ -224,11 +221,9 @@ outDiffLs <- makeDiffPlot(x100c[["xTrans"]][,5:6], idCol = 2)
 <img src="vignettes/Fig5.png" style="width:6.94444in" alt="Figure 5" /><figcaption aria-hidden="true">Figure 5</figcaption>
 </figure>
 
-According to the total count table (binWidth = 20 = 5 bins), there were
-some cases that were not 1 bin, but even 2 bins away from the bull’s
-eye. Who are they? What is going on there? For finding clues about such
-questions, this pilot version of the predictMe package (version 0.1)
-currently provides the function makeDiffPlotColor (see next subsection).
+The x-axis (*xAxisIds*) shows all subjects, in this simulated data set: 1000. The y-axis (*diff*) shows the differences between the measures and the predicted outcome of each subject, using the linearly transformed scale between 0 and 100. The red dashed line shows the perfect prediction (where measured and predicted outcome are exactly alike).
+
+According to the total count table (binWidth = 20 = 5 bins), there were some cases that were not 1 bin, but even 2 bins away from the bull's eye. Who are they? What is going on there? For finding clues about such questions, this pilot version of the predictMe package (version 0.1) currently provides the function makeDiffPlotColor (see next subsection).
 
 #### Function makeDiffPlotColor (c)
 
@@ -254,18 +249,9 @@ dpcFacet <- dpc$diffPlotColor + ggplot2::facet_wrap(~absBinDiff)
 <img src="vignettes/Fig7.png" style="width:6.94444in" alt="Figure 7" /><figcaption aria-hidden="true">Figure 7</figcaption>
 </figure>
 
-Such and probably many other detailed investigations could be conducted,
-if one wanted to focus on several aspects of the individual prediction
-performance, be it particularly accurate predictions or particularly
-inaccurate ones, or in between.
+Such and probably many other detailed investigations could be conducted, if one wanted to focus on several aspects of the individual prediction performance, be it particularly accurate predictions or particularly inaccurate ones, or in between.
 
-Notably, it might initially appear surprising that some differences of
-almost zero (close to perfect prediction) can be 1 bin away from the
-bull’s eye bin (green points in figure 7, very close to the dashed red
-line). The explanation for this is an individual’s measured outcome
-being very close to the border of one bin, e.g., 40.01, while the
-predicted outcome was very close to this border, but still in the lower
-bin, e.g., 39.99.
+Notably, it might initially appear surprising that some differences of almost zero (close to perfect prediction) can be 1 bin away from the bull's eye bin (green points in figure 7, very close to the dashed red line). The explanation for this is an individual's measured outcome being very close to the border of one bin, e.g., 40.01, while the predicted outcome was very close to this border, but still in the lower bin, e.g., 39.99. For a further short discussion of this evident flaw, see headline 'Bin noise' at the bottom of this vignette.
 
 ### Binary (b) outcome
 
@@ -274,18 +260,9 @@ bin, e.g., 39.99.
 
 Looks perfect (when using simulated data and a bin width of 20).
 
-The main difference to using a continuous outcome is that the binary
-outcome does not need to be rescaled to range between 0 and 100. It
-merely needs to be multiplied by 100. That is, prediction research that
-uses binary outcomes, practically always use the so-called response as
-output. The response is the estimated probability that the outcome will
-take place. Probabilities by definition range between 0 and 1, which is
-why multiplying them by 100 returns these probabilities as a percentage.
+The main difference to using a continuous outcome is that the binary outcome does not need to be rescaled to range between 0 and 100. It merely needs to be multiplied by 100. That is, prediction research that uses binary outcomes, practically always use the so-called response as output. The response is the estimated probability that the outcome will take place. Probabilities by definition range between 0 and 1, which is why multiplying them by 100 returns these probabilities as a percentage.
 
-In terms of visualizing the algorithm’s individual prediction
-performance, this is the exact same situation as to when the outcome was
-continuous (after being rescaled (linearly transformed) to range between
-0 and 100).
+In terms of visualizing the algorithm's individual prediction performance, this is the exact same situation as to when the outcome was continuous (after being rescaled (linearly transformed) to range between 0 and 100).
 
 #### Functions quickSim and binBinary (b)
 
@@ -303,17 +280,7 @@ glmDf <- data.frame(measOutcome=glmRes$model$y,
 x100b <- binBinary(x=glmDf, measColumn = 1, binWidth = 20)
 ```
 
-Another difference between the binary and the continuous outcome is how
-to compare the algorithm’s predictions with the measured outcome. Having
-a continuous outcome, the algorithm predicts the outcome also on a
-continuous scale. This is not true of a binary outcome. The measured
-outcome is binary, whereas the predicted outcome is usually continuous
-(predicted probabilities that range between 0 and 1). Therefore, with
-the binary outcome, first the predicted probabilities are categorized
-into equal bins, after which the mean number of measured outcome events
-is computed for each bin. This is the basis for comparing the observed
-frequency of the outcome with the respective bin. Let’s look at the data
-to clarify what this means:
+Another difference between the binary and the continuous outcome is how to compare the algorithm's predictions with the measured outcome. Having a continuous outcome, the algorithm predicts the outcome also on a continuous scale. This is not true of a binary outcome. The measured outcome is binary, whereas the predicted outcome is usually continuous (predicted probabilities that range between 0 and 1). Therefore, with the binary outcome, first the predicted probabilities are categorized into equal bins, after which the mean number of measured outcome events is computed for each bin. This is the basis for comparing the observed frequency of the outcome with the respective bin. Let's look at the data to clarify what this means:
 
 ```R
 # Use part of the output of function binBinary, in particular: Display
@@ -335,21 +302,9 @@ Output in R console
 
 Ignore the line numbers 3, 17, ..., 1.
 
-For instance, the first bin of predicted probabilities (column *fitted*)
-ranges between 0 and 0.2 (or 0 and 20, in percent). In this bin, the
-mean number of measured events was 7.69 percent. This is the relative
-frequency of the binary outcome in this bin, that is, a constant number.
-The predicted probability, on the other hand (column *fittedPerc*) is
-not a constant number. The number 4.298 is only the first instance that
-was found, when using the function match (see previous code block).
-Let’s check the summary of predicted probabilities (*fittedPerc*) in the
-first bin to get an idea of their range.
+For instance, the first bin of predicted probabilities (column *fitted*) ranges between 0 and 0.2 (or 0 and 20, in percent). In this bin, the mean number of measured events was 7.69 percent. This is the relative frequency of the binary outcome in this bin, that is, a constant number. The predicted probability, on the other hand (column *fittedPerc*) is not a constant number. The number 4.298 is only the first instance that was found, when using the function match (see previous code block). Let's check the summary of predicted probabilities (*fittedPerc*) in the first bin to get an idea of their range.
 
-Note that ‘the first bin’ in this specific vignette needs no further
-specification, because for the binWidth of 20, all predicted probability
-bins perfectly align with the bins of the relative frequencies of the
-measured binary outcome (see introductory heatmaps: Value 1 across the
-diagonal).
+Note that 'the first bin' in this specific vignette needs no further specification, because for the binWidth of 20, all predicted probability bins perfectly align with the bins of the relative frequencies of the measured binary outcome (see introductory heatmaps: Value 1 across the diagonal).
 
 ```R
 # Summary of column fittedPerc for the first bin
@@ -363,18 +318,11 @@ Output in R console
  0.003784  0.990428  4.364189  6.311213 10.960193 19.756161
 ```
 
-In the first bin the predicted probabilities range between 0.004 percent
-and 19.76 percent.
+In the first bin the predicted probabilities range between 0.004 percent and 19.76 percent.
 
-For a well-performing algorithm, in the first bin we expect the mean
-number of the measured outcome to be somewhere between 0 and 20 percent.
-If this mean number in this bin was above 20 percent, this may cause us
-to be sceptical.
+For a well-performing algorithm, in the first bin we expect the mean number of the measured outcome to be somewhere between 0 and 20 percent. If this mean number in this bin was above 20 percent, this may cause us to be sceptical.
 
-An algorithm might perform well in some bins, less well (or even bad) in
-others. Visualizing this with the predictMe package instantly reveals
-the strengths and weaknesses, in exactly the same way for binary
-outcomes and for continuous outcomes.
+An algorithm might perform well in some bins, less well (or even bad) in others. Visualizing this with the predictMe package instantly reveals the strengths and weaknesses, in exactly the same way for binary outcomes and for continuous outcomes.
 
 #### Function makeTablePlot (b)
 
@@ -394,16 +342,9 @@ outDiffLs <- makeDiffPlot(x100b[["xTrans"]][,5:6], idCol = 2)
 <img src="vignettes/Fig10.png" style="width:6.94444in" alt="Figure 10" /><figcaption aria-hidden="true">Figure 10</figcaption>
 </figure>
 
-When looking at the individual differences (predicted probabilities in
-percent; see y-axis diffPerc), we see that perfection in one plot (the
-introductory heatmaps) must not imply perfection in another plot,
-which - as noted - in the real (probabilistic) world is impossible.
+When looking at the individual differences (predicted probabilities in percent; see y-axis *diffPerc*), we see that perfection in one plot (the introductory heatmaps for the binary outcome) must not imply perfection in another plot, which - as noted - in the real (probabilistic) world is impossible.
 
-This difference plot suggests, in combination with the perfect looking
-introductory heatmaps, that colorizing this difference plot would be
-futile. Let’s check: If the column *absBinDiff* has only one factor
-level, then colorizing would not make sense in terms of obtaining more
-detailed information, compared to figure 10.
+This difference plot suggests, in combination with the perfect looking introductory heatmaps, that colorizing this difference plot would be futile. Let's check: If the column *absBinDiff* has only one factor level, then colorizing would not make sense in terms of obtaining more detailed information, compared to figure 10.
 
 ```R
 # How many levels?
@@ -415,9 +356,7 @@ Output in R console
 [1] 1
 ```
 
-As suspected, one factor level. Better use real data, I guess. But wait.
-Let’s just select more bins, say 25? Then check the number of levels (we
-want color, damn it!).
+As suspected, one factor level. Better use real data, I guess. But wait. Let's just select more bins, say 25? Then check the number of levels (we want color, damn it!).
 
 ```
 # Apply function binBinary, set binWidth to 4.
@@ -438,9 +377,7 @@ How do the heatmaps now look like?
 <img src="vignettes/Fig11.png" style="width:4.16667in" alt="Figure 11" />
 <img src="vignettes/Fig12.png" style="width:4.16667in" alt="Figure 12" />
 
-Interestingly, the more the individual level gets approached, the wider
-the gaps (lightest blue) along the diagonal become, at least with the
-simulated data.
+Interestingly, the more the individual level gets approached, the wider the gaps (lightest blue) along the diagonal become, at least with the simulated data.
 
 #### Function makeDiffPlotColor (b)
 
@@ -460,23 +397,22 @@ dpbFacet <- dpb$diffPlotColor + ggplot2::facet_wrap(~absDiffBins)
 </figure>
 
 
-For further explanations regarding the main intended purpose of this
-predictMe package, please see this package’s documentation, that is, in
-the documentation, click on the predictMe documentation.
+## Bin noise
 
-**Final note**: For demonstration purposes only, the full simulated data
-set (*N* = 1000) has been used both, for fitting the model and for
-evaluating the individual prediction performance. In machine learning
-(ML), this is the single most important mistake anyone can do.
-Therefore, if you want to use the predictMe package for your ML
-research, make sure that you extract the measured and the predicted
-outcome values of the so-called test cases only. The test cases are the
-individuals, with whom the trained (possibly tuned) algorithm was
-cross-validated, to obtain the estimates of the possible real world
-prediction performance of that algorithm.
+Introducing noise clearly is a flaw that comes with binning continuous data. However, researchers might still draw important information from the above visualizations. For instance, one might compute the percentage of cases in the sample that display this unwanted noise, and take this percentage into account when using the visual output to evaluate prediction performance on the individual level.
+
+Regarding the intended purpose of the main visual output of the predictMe package, I choose to argue in favor of a method that presents potentially important information, where the inherent flaws are evidently visible, compared to a method without these (but other) flaws, which are very often implicit (not visible). I see a similarity, in some way, to what John Tukey said at the beginning of section 11 'Facing uncertainty' (1962): 'Far better an approximate answer to the right question, which is often vague, than the exact answer to the wrong question, which can always be made precise'.
+
+## Misc and References
+
+For further explanations regarding the main intended purpose of this predictMe package, please see this package's documentation, that is, in the documentation, click on the predictMe documentation. Alternatively, load the predictMe package, then enter in the R console: ?predictMe::predictMe
+
+**Final note**: For demonstration purposes only, the full simulated data set (*N* = 1000) has been used both, for fitting the model and for evaluating the individual prediction performance. In machine learning (ML), this is the single most important mistake anyone can do. Therefore, if you want to use the predictMe package for your ML research, make sure that you extract the measured and the predicted outcome values of the so-called test cases only. The test cases are the individuals, with whom the trained (possibly tuned) algorithm was cross-validated, to obtain the estimates of the possible real world prediction performance of that algorithm.
 
 **References**
 
-Wickham H (2016). *ggplot2: Elegant Graphics for Data Analysis*.
-Springer-Verlag New York. ISBN 978-3-319-24277-4,
-<https://ggplot2.tidyverse.org>.
+Levitt, H. M., Surace, F. I., Wu, M. B., Chapin, B., Hargrove, J. G., Herbitter, C., Lu, E. C., Maroney, M. R., & Hochman, A. L. (2020). The meaning of scientific objectivity and subjectivity: From the perspective of methodologists. *Psychological Methods*. [https://doi.org/10.1037/met0000363](https://doi.org/10.1037/met0000363)
+
+Tuckey, J. W. (1962). The Future of Data Analysis. *The Annals of Mathematical Statistics*, *33*(1), 1-67. [https://www.jstor.org/stable/2237638](https://www.jstor.org/stable/2237638)
+
+Wickham H (2016). *ggplot2: Elegant Graphics for Data Analysis*. Springer-Verlag New York. ISBN 978-3-319-24277-4, [https://ggplot2.tidyverse.org](https://ggplot2.tidyverse.org).
