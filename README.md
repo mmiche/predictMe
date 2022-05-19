@@ -4,36 +4,39 @@ R package to visualize individual prediction performance
 
 > 2022-05-14: Submitted package to CRAN, await manual check.
 
+## predictMe - Visualize Individual Prediction Performance
+
+1. Disadvantages
+  + No single numeric summary result.
+2. Advantages
+  + No single numeric summary result (no copy paste error).
+  + Output is mainly visual.
+  + Worst and best 'result' clearly defined.
+  + Visual output instantly comprehensible.
+  + Overall and detailed feedback all in one.
+  + Weaknesses as visible as strengths.
+  + Independent of algorithm or software (only 2 output columns required).
+
+Depending on the specific research topic and personal preferences, the perceived (dis-)advantages are probably different.
+
+**predictMe** is an easy way in R to visually explore possible (dis-)advantages of the individual prediction performance of any algorithm, as long as the outcome is either continuous or binary.
+
 ## Why?
 
-There is no quick and easy way so far (to the best of my knowledge) to
-evaluate the performance of a machine learning (ML) algorithm, as it
-pertains to the individual level. That is what the ‘Me’ stands for in
-the predictMe package. That is, the ‘individual’ client, e.g., the
-patient, who is claimed by ML researchers to be the main beneficiary of
-ML research.
+There is no quick and easy way so far (to the best of my knowledge) to evaluate the performance of a machine learning (ML) algorithm, as it pertains to the individual level. That is what the 'Me' stands for in the predictMe package. That is, the 'individual' client, e.g., the patient, who is claimed by ML researchers to be the main beneficiary of ML research.
 
-Without further ado, let’s start at the end: The main result of the
-predictMe package.
+Without further ado, let's start at the end: The main result of the predictMe package.
 
-The performance evaluation heatmap instantly and comprehensibly displays
-all strengths and weaknesses of the predictions. A perfect performance
-(only theoretically possible) has the value 1 across the diagonal
-(darkest blue), whereas the worst performance has the value 0 across the
-diagonal (lightest blue). This rule applies to both of the pairwise
-plots. Plots must come in a pair, because one perspective makes no sense
-without its complementary perspective.
+The performance evaluation heatmap instantly and comprehensibly displays all strengths and weaknesses of the predictions. A perfect performance (only theoretically possible) has the value 1 across the diagonal, whereas the worst performance has the value 0 across the diagonal. This rule applies to both of the pairwise plots. Plots must come in a pair, because one perspective makes no sense without its complementary perspective.
 
-Perfect prediction is practically impossible (in a probabilistic world).
-Obviously then, we must ask how far away from perfection is tolerable,
-in other words, how close to perfection can we get? Both heatmaps
-visualize how often and how far away the algorithm failed to hit the
-bull’s eye of each of the compared bins. The user can determine the
-number of bins and whether the relative frequencies shall be displayed
-in each cell.
+Perfect prediction is practically impossible (in a probabilistic world). Obviously then, we must ask how far away from perfection is tolerable, in other words, how close to perfection can we get? Both heatmaps visualize how often and how far away the algorithm failed to hit the bull's eye of each of the compared bins. The user can determine the number of bins and whether the relative frequencies of bin concordance shall be displayed in each cell.
+
+BEWARE: Many researchers are strongly opposed to the binning of continuous data, including me. However, sometimes the benefits may outweigh the flaws (knowing that flawless methods do not exist). I emphasize that the predictMe package provides previously unavailable and potentially important **visual** information. I therefore argue that some data information loss or reduced statistical power (due to binning) appear not as relevant here, compared to a method that evaluates prediction performance numerically, as opposed to visually. This opinion of mine partly draws from the notion of methodological pluralism (Levitt et al., 2020).
 
 <img src="vignettes/Fig1.png" style="width:4.16667in" alt="Figure 1" />
 <img src="vignettes/Fig2.png" style="width:4.16667in" alt="Figure 2" />
+
+Please pay attention to the legend on top of **each** heatmap: Darkest blue is the overall highest percentage of bin concordance. In the left plot this is 1 (bottom right), whereas in the right plot it is 0.76 (row 2, left).
 
 ## How to?
 
