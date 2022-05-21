@@ -1,4 +1,4 @@
-#' @title Return of five common results, based on the 2by2 cross-table (a.k.a. confusion matrix).
+#' @title Return of five common results, based on the 2x2 cross-table (a.k.a. confusion matrix).
 #
 #' @description Upon receiving two binary variables (only 0 and 1 permitted) of equal length, return sensitivity, specificity, positive predictive value, negative predictive value, and the base rate of the outcome.
 #
@@ -9,14 +9,18 @@
 #' @param xr A data.frame with exactly two columns, one of the columns must be the binary measured outcome, the other column must be the binary predicted outcome, based on some algorithm's predictions (see \strong{Details}).
 #
 #' @details The r in the argument 'xr' stands for response, meaning that the predicted probabilities must have been transformed to a binary outcome, usually by using the default cutoff of 0.5; although it may also be any other cutoff between 0 and 1.
+#'
+#' If you wish to additionally print the 2x2 matrix, set the argument 'print2by2' TRUE (default: FALSE).
 #
-#' @return a list with five values:
+#' @return a list with five elements (seven, if argument print2by2 is set TRUE; see \strong{Details}):
 #' \enumerate{
 #' \item sens Sensitivity (a.k.a.: Recall, True Positive Rate).
 #' \item spec Specificity (a.k.a.: True Negative Rate).
 #' \item ppv Positive Predictive Value (a.k.a.: Precision).
 #' \item npv Negative Predictive Value.
 #' \item br Base rate of the outcome (mean outcome occurrence in the sample).
+#' \item tbl1 2x2 matrix. Test-theoretic perspective: Specificity in top left cell, sensitivity in bottom right cell.
+#' \item tbl2 2x2 matrix. Test-practical perspective (apply test in the real world): Negative predictive value (npv) in top left cell, positive predictive value (ppv) in bottom right cell.
 #' }
 #
 #' @author Marcel Miché
@@ -24,19 +28,29 @@
 #' @importFrom stats var
 #
 #' @examples
-#' \dontrun{
 #' # Simulate data set with binary outcome
 #' dfBinary <- quickSim(type="binary")
 #' # Logistic regression, used as algorithm to predict the response variable
 #' # (response = estimated probability of outcome being present).
 #' glmRes <- glm(y~x1+x2,data=dfBinary,family="binomial")
-#' # Make data.frame with the measured binary outcome and the predicted
+#' # Extract measured outcome and the predicted probability (fitted values)
+#' # from the logistic regression output, put both in a data.frame.
+#' glmDf <- data.frame(measOutcome=dfBinary$y,
+#'                     fitted=glmRes$fitted.values)
 #' # binary outcome, based on the default probability threshold of 0.5.
 #' get2by2Df <- data.frame(
 #'     measuredOutcome=glmDf$measOutcome,
 #'     predictedOutcome=ifelse(glmDf$fitted<.5, 0, 1))
-#' # Display 2by2 table results in the console.
-#' get2by2(xr=get2by2Df, measColumn=1, print = TRUE)}
+#' # Demand 2x2 matrix to be part of the resulting list.
+#' my2x2 <- get2by2(xr=get2by2Df, measColumn=1, print2by2 = TRUE)
+#' # Display both 2x2 matrices
+#' # tbl1: Theoretical perspective, with specificity in top left cell,
+#' # sensitivity in bottom right cell.
+#' my2x2$tbl1
+#' # tbl2: Practical perspective, with negative predictive value (npv)
+#' # in top left cell, positive predictive value (ppv) in bottom right
+#' # cell.
+#' my2x2$tbl2
 #
 #' @export
 #
@@ -86,7 +100,7 @@ get2by2 <- function(xr, measColumn=NULL, print2by2=FALSE) {
     }
     
     # If column measColumn contains exactly two values, are these integer values?
-    if(any(xr[,measColumn]%%1!=0 || is.na(xr[,measColumn]))) {
+    if(any((xr[,measColumn]%%1)!=0 | is.na(xr[,measColumn]))) {
         stop("The function argument 'measColumn' must be a single integer number (1 or 2), showing which column of the data.frame contains the measured outcome, which are expected to be the 2 categories: 0 = absent, 1 = present.")
     }
     
@@ -112,19 +126,22 @@ get2by2 <- function(xr, measColumn=NULL, print2by2=FALSE) {
         stop("Function argument 'print2by2' must be either TRUE or FALSE.")
     }
     
-    
     yFitted <- xr[,-measColumn]
     yMeasured <- xr[,measColumn]
     tbl <- table(yFitted, yMeasured)
     
     if(print2by2) {
-        cat("2 by 2 matrix. Theoretical perspective, with specificity in top left cell, sensitivity in bottom right cell.\n")
+        
         tbl1 <- prop.table(table(yFitted, yMeasured), margin = 2)
-        print(tbl1)
-        cat("\n2 by 2 matrix. Practical perspective, with negative predictive value (npv) in top left cell, positive predictive value (ppv) in bottom right cell.\n")
         tbl2 <- prop.table(table(yFitted, yMeasured), margin = 1)
-        print(tbl2)
-        cat("-------------------\n")
+        
+        return(list(sens=tbl[2,2]/sum(tbl[,2]),
+                    spec=tbl[1,1]/sum(tbl[,1]),
+                    ppv=tbl[2,2]/sum(tbl[2,]),
+                    npv=tbl[1,1]/sum(tbl[1,]),
+                    baseRate=sum(tbl[,2])/sum(tbl),
+                    tbl1=tbl1,
+                    tbl2=tbl2))
         
     }
     return(list(sens=tbl[2,2]/sum(tbl[,2]),
