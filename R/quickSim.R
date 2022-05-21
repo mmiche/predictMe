@@ -27,14 +27,13 @@
 #' @importFrom stats var rnorm rbinom
 #
 #' @examples
-#' \dontrun{
 #' # Simulate data set with continuous outcome (use all default values)
 #' dfContinuous <- quickSim()
 #' # Simulate data set with continuous outcome (set sample size to 149)
 #' dfContinuous <- quickSim(n = 149)
 #' nrow(dfContinuous) # 149
 #' # Simulate data set with binary outcome (set sample size to 100, and
-#' # coefficients to 3, 1, and -2.5)}
+#' # coefficients to 3, 1, and -2.5)
 #
 #' @references
 #'
@@ -54,11 +53,11 @@ quickSim <- function(n=1000, intercept=1, coefs=c(2, 3), errMean=30, errSD=3, se
     })
     
     if(length(error.n)==1 && error.n) {
-        cat("Function argument 'n' must be an integer number > 2.\nn has been reset to its default value of 1000.\n")
+        message("Function argument 'n' must be an integer number > 2.\nn has been reset to its default value of 1000.\n")
         n <- 1000
     } else if(any((1:6) %in% error.n$val)) {
-        cat(error.n$msg, "\n")
-        cat("Function argument 'n' has been reset to its default value of 1000.\n")
+        message(error.n$msg, "\n")
+        message("Function argument 'n' has been reset to its default value of 1000.\n")
         n <- 1000
     }
     # -----------------------------------------
@@ -70,11 +69,11 @@ quickSim <- function(n=1000, intercept=1, coefs=c(2, 3), errMean=30, errSD=3, se
     })
     
     if(length(error.intercept)==1 && error.intercept) {
-        cat("Function argument 'intercept' must be a single number.\nintercept has been reset to its default value of 1.\n")
+        message("Function argument 'intercept' must be a single number.\nintercept has been reset to its default value of 1.\n")
         intercept <- 1
     } else if(any((1:4) %in% error.intercept$val)) {
-        cat(error.intercept$msg, "\n")
-        cat("Function argument 'intercept' has been reset to its default value of 1.\n")
+        message(error.intercept$msg, "\n")
+        message("Function argument 'intercept' has been reset to its default value of 1.\n")
         intercept <- 1
     }
     # -----------------------------------------
@@ -95,19 +94,19 @@ quickSim <- function(n=1000, intercept=1, coefs=c(2, 3), errMean=30, errSD=3, se
             })
             
             if(length(error.coefs2)==1 && error.coefs2) {
-                cat("Function argument 'coefs' must be a vector with at least one numeric value.\ncoefs has been reset to its default vector: c(2,3).\n")
+                message("Function argument 'coefs' must be a vector with at least one numeric value.\ncoefs has been reset to its default vector: c(2,3).\n")
                 coefs <- c(2,3)
             } else if(any((1:4) %in% error.coefs2$val)) {
                 # If any of the selected coefficients are invalid, reset
                 # to default vector (c(2,3)) and break out of the loop.
-                cat(error.coefs2$msg, "\n")
-                cat("Function argument 'coefs' has been reset to its default vector: c(2,3).\n")
+                message(error.coefs2$msg, "\n")
+                message("Function argument 'coefs' has been reset to its default vector: c(2,3).\n")
                 coefs <- c(2,3)
                 break
             }
         }
     } else {
-        cat("Function argument 'coefs' must be a vector with at least one numeric value.\ncoefs has been reset to its default vector: c(2,3).\n")
+        message("Function argument 'coefs' must be a vector with at least one numeric value.\ncoefs has been reset to its default vector: c(2,3).\n")
         coefs <- c(2,3)
     }
     # -----------------------------------------
@@ -120,15 +119,15 @@ quickSim <- function(n=1000, intercept=1, coefs=c(2, 3), errMean=30, errSD=3, se
     })
     
     if(length(error.errMean)==1 && error.errMean) {
-        cat("Function argument 'errMean' must be a single number.\nerrMean has been reset to its default value of 30.\n")
+        message("Function argument 'errMean' must be a single number.\nerrMean has been reset to its default value of 30.\n")
         errMean <- 30
     } else if(any((1:4) %in% error.errMean$val)) {
-        cat(error.errMean$msg, "\n")
-        cat("Function argument 'errMean' has been reset to its default value of 30.\n")
+        message(error.errMean$msg, "\n")
+        message("Function argument 'errMean' has been reset to its default value of 30.\n")
         errMean <- 30
     # Additional check: Must not be a negative value.
     } else if(errMean < 0) {
-        cat("Function argument 'errMean' must be a single number >= 0.\nerrMean has been reset to its default value of 30.\n")
+        message("Function argument 'errMean' must be a single number >= 0.\nerrMean has been reset to its default value of 30.\n")
         errMean <- 30
     }
     # -----------------------------------------
@@ -140,14 +139,14 @@ quickSim <- function(n=1000, intercept=1, coefs=c(2, 3), errMean=30, errSD=3, se
     })
     
     if(length(error.errSD)==1 && error.errSD) {
-        cat("Function argument 'errSD' must be a single number.\nerrSD has been reset to its default value of 3.\n")
+        message("Function argument 'errSD' must be a single number.\nerrSD has been reset to its default value of 3.\n")
         errSD <- 3
     } else if(any((1:4) %in% error.errSD$val)) {
-        cat(error.errSD$msg, "\n")
-        cat("Function argument 'errSD' has been reset to its default value of 3.\n")
+        message(error.errSD$msg, "\n")
+        message("Function argument 'errSD' has been reset to its default value of 3.\n")
         errSD <- 3
     } else if(errSD <= 0) {
-        cat("Function argument 'errSD' must be a single number > 0.\nerrSD has been reset to its default value of 3.\n")
+        message("Function argument 'errSD' must be a single number > 0.\nerrSD has been reset to its default value of 3.\n")
         errSD <- 3
     }
     # -----------------------------------------
@@ -159,11 +158,11 @@ quickSim <- function(n=1000, intercept=1, coefs=c(2, 3), errMean=30, errSD=3, se
     })
     
     if(length(error.seed)==1 && error.seed) {
-        cat("Function argument 'seed' must be a single number.\nintercept has been reset to its default value of 1.\n")
+        message("Function argument 'seed' must be a single number.\nintercept has been reset to its default value of 1.\n")
         seed <- 1
     } else if(any((1:4) %in% error.seed$val)) {
-        cat(error.seed$msg, "\n")
-        cat("Function argument 'seed' has been reset to its default value of 1.\n")
+        message(error.seed$msg, "\n")
+        message("Function argument 'seed' has been reset to its default value of 1.\n")
         seed <- 1
     }
     # -----------------------------------------
@@ -175,15 +174,15 @@ quickSim <- function(n=1000, intercept=1, coefs=c(2, 3), errMean=30, errSD=3, se
     })
     
     if(length(error.type)==1 && error.type) {
-        cat("Function argument 'type' must be a character, either 'binary' or 'continuous' (lowercase).\ntype has been reset to its default 'continuous'.\n")
+        message("Function argument 'type' must be a character, either 'binary' or 'continuous' (lowercase).\ntype has been reset to its default 'continuous'.\n")
         type <- "continuous"
     } else if(any((1:4) %in% error.type$val)) {
-        cat(error.errSD$msg, "\n")
-        cat("Function argument 'type' has been reset to its default 'continuous'.\n")
+        message(error.errSD$msg, "\n")
+        message("Function argument 'type' has been reset to its default 'continuous'.\n")
         type <- "continuous"
     # Additional check: If type is a single character, is it correct?
     } else if(all(c(type != "binary", type != "continuous"))) {
-        cat("Function argument 'type' must be a character, either 'binary' or 'continuous' (lowercase).\ntype has been reset to its default 'continuous'\n")
+        message("Function argument 'type' must be a character, either 'binary' or 'continuous' (lowercase).\ntype has been reset to its default 'continuous'\n")
         type <- "continuous"
     }
     # -----------------------------------------
