@@ -26,9 +26,10 @@ Predicted probabilities are categorized as bins, depending on the selected 'binW
 }
 \details{
 Predicted values (probability in percent) less than 0 or greater than 100 are replaced by 0 and 100, respectively.
+
+Beware: Since binning continuous values always introduces noise, some of the differences in column 7 (bin differences) require explicit attention. When the outcome is binary, the binning of the predicted probabilities (fitted values) will also automatically introduce noise in column 5, since the mean number of measured events depends on the width and on the exact borders of the bins (see package vignette, headline \strong{Bin noise}).
 }
 \examples{
-\dontrun{
 # Simulate data set with binary outcome
 dfBinary <- quickSim(type="binary")
 # Logistic regression, used as algorithm to predict the response variable
@@ -40,7 +41,7 @@ glmDf <- data.frame(measOutcome=dfBinary$y,
                     fitted=glmRes$fitted.values)
 # Apply function binBinary, generate 5 equal bins (probabilities in
 # percent, bin width 20, yields 5 bins).
-x100b <- binBinary(x=glmDf, measColumn = 1, binWidth = 20)}
+x100b <- binBinary(x=glmDf, measColumn = 1, binWidth = 20)
 }
 \author{
 Marcel Miché
