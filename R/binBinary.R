@@ -9,6 +9,8 @@
 #' @param x A data.frame with exactly two columns, one of the columns must be the measured outcome, the other column must be the predicted outcome values, as returned by some algorithm.
 #
 #' @details Predicted values (probability in percent) less than 0 or greater than 100 are replaced by 0 and 100, respectively.
+#'
+#' Beware: Since binning continuous values always introduces noise, some of the differences in column 7 (bin differences) require explicit attention. When the outcome is binary, the binning of the predicted probabilities (fitted values) will also automatically introduce noise in column 5, since the mean number of measured events depends on the width and on the exact borders of the bins (see package vignette, headline \strong{Bin noise}).
 #
 #' @return a list with two data.frames and one vector. Each data.frame has 7 columns:
 #' \enumerate{
@@ -22,7 +24,6 @@
 #' @importFrom stats var
 #
 #' @examples
-#' \dontrun{
 #' # Simulate data set with binary outcome
 #' dfBinary <- quickSim(type="binary")
 #' # Logistic regression, used as algorithm to predict the response variable
@@ -34,7 +35,7 @@
 #'                     fitted=glmRes$fitted.values)
 #' # Apply function binBinary, generate 5 equal bins (probabilities in
 #' # percent, bin width 20, yields 5 bins).
-#' x100b <- binBinary(x=glmDf, measColumn = 1, binWidth = 20)}
+#' x100b <- binBinary(x=glmDf, measColumn = 1, binWidth = 20)
 #
 #' @export
 #
@@ -189,7 +190,6 @@ binBinary <- function(x=NULL, measColumn=NULL, binWidth=20) {
     if(!anyExceed) {
         message("Values were detected that exceed 0 or 100. Use list output 'xTrans2' and 'idxExceed' to display these cases.")
         
-        print(x[idxExceed,])
         x[,"measOutcomePerc"] <- obsFreq2
         x[,"fittedPerc"] <- fittedPerc
         x[,"diffPerc"] <- obsFreq2 - fittedPerc
