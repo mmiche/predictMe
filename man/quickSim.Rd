@@ -41,14 +41,13 @@ The returned simulated data set will have as many predictors, as the user entere
 The simulated data set is merely serving the need to provide the main functions of this package with the data they require (demonstration purpose; several simulation packages exist in R).
 }
 \examples{
-\dontrun{
 # Simulate data set with continuous outcome (use all default values)
 dfContinuous <- quickSim()
 # Simulate data set with continuous outcome (set sample size to 149)
 dfContinuous <- quickSim(n = 149)
 nrow(dfContinuous) # 149
 # Simulate data set with binary outcome (set sample size to 100, and
-# coefficients to 3, 1, and -2.5)}
+# coefficients to 3, 1, and -2.5)
 }
 \references{
 Simulation code inside this function was largely taken from \href{https://stats.stackexchange.com/questions/46523/how-to-simulate-artificial-data-for-logistic-regression/46525}{Stéphane Laurent's} answer on StackExchange.
