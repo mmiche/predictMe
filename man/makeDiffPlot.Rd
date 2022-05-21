@@ -25,7 +25,6 @@ Irrespective of whether the original outcome was continuous or binary, outcome v
 Use the column diff (from function \code{\link{binContinuous}}) or diffPerc (from function \code{\link{binBinary}}) and column xAxisIds, both columns being part of both data.frames that are returned by the two mentioned functions.
 }
 \examples{
-\dontrun{
 # Simulate data set with continuous outcome (use all default values)
 dfContinuous <- quickSim()
 # Use multiple linear regression as algorithm to predict the outcome.
@@ -41,7 +40,7 @@ x100c <- binContinuous(x=lmDf, measColumn = 1, binWidth = 20)
 dp <- makeDiffPlot(x100c[["xTrans"]][,5:6], idCol = 2)
 # dp is the plot that shows the individual differences.
 # makeDiffPlot works the same way if binBinary had be used instead of
-# binContinuous.}
+# binContinuous.
 }
 \references{
 \insertRef{ggplot2Wickham}{predictMe}
