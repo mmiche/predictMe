@@ -38,9 +38,10 @@ Measured and predicted continuous outcome values (transformed to range between 0
 Regarding function arguments 'computeRange' and 'range_x': If either the minimum or maximum possible value of the outcome scale has not occurred, e.g., none of the participants selected the maximum possible answer option, then the user must pass the possible range of outcome values to this function, using the function argument 'range_x', e.g., range_x = c(1, 5), if the original outcome scale ranged from 1 to 5.
 
 Regarding function output 'xTrans' (see \strong{Value}): Predicted values less than 0 or greater than 100 are replaced by 0 and 100, respectively.
+
+Beware: The differences in column 5 are as accurate (no information loss) as if the original measured and predicted outcome values were subtracted from one another. However, since binning continuous values always introduces noise, some of the differences in column 7 (bin differences) require explicit attention (see package vignette, headline \strong{Bin noise}).
 }
 \examples{
-\dontrun{
 # Simulate data set with continuous outcome (use all default values)
 dfContinuous <- quickSim()
 # Use multiple linear regression as algorithm to predict the outcome.
@@ -51,7 +52,7 @@ lmDf <- data.frame(measOutcome=dfContinuous$y,
                    fitted=lmRes$fitted.values)
 # Apply function binContinuous, generate 5 equal bins (transformed
 # outcome 0-100, bin width = 20, yields 5 bins).
-x100c <- binContinuous(x=lmDf, measColumn = 1, binWidth = 20)}
+x100c <- binContinuous(x=lmDf, measColumn = 1, binWidth = 20)
 }
 \author{
 Marcel Miché
