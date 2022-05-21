@@ -19,7 +19,6 @@
 #' @importFrom ggplot2 ggplot aes_string geom_point geom_hline theme element_text
 #
 #' @examples
-#' \dontrun{
 #' # Simulate data set with continuous outcome (use all default values)
 #' dfContinuous <- quickSim()
 #' # Use multiple linear regression as algorithm to predict the outcome.
@@ -35,7 +34,7 @@
 #' dp <- makeDiffPlot(x100c[["xTrans"]][,5:6], idCol = 2)
 #' # dp is the plot that shows the individual differences.
 #' # makeDiffPlot works the same way if binBinary had be used instead of
-#' # binContinuous.}
+#' # binContinuous.
 #
 #' @references
 #'
