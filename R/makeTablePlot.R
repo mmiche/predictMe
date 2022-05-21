@@ -34,7 +34,6 @@
 #' @importFrom stats var
 #
 #' @examples
-#' \dontrun{
 #' # Simulate data set with continuous outcome (use all default values)
 #' dfContinuous <- quickSim()
 #' # Use multiple linear regression as algorithm to predict the outcome.
@@ -53,7 +52,7 @@
 #' # a different format).
 #' # Display item 6 (plot no.1). Perfect performance if the diagonal cells all
 #' # contain the value 1.
-#' tp$rowSumTable_plot}
+#' tp$rowSumTable_plot
 #
 #' @references
 #'
