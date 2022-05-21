@@ -2,7 +2,7 @@
 % Please edit documentation in R/get2by2.R
 \name{get2by2}
 \alias{get2by2}
-\title{Return of five common results, based on the 2by2 cross-table (a.k.a. confusion matrix).}
+\title{Return of five common results, based on the 2x2 cross-table (a.k.a. confusion matrix).}
 \usage{
 get2by2(xr, measColumn = NULL, print2by2 = FALSE)
 }
@@ -14,13 +14,15 @@ get2by2(xr, measColumn = NULL, print2by2 = FALSE)
 \item{print2by2}{Logical value, defaults to FALSE. If set TRUE, two 2by2 matrices will be printed with explanations of what they display.}
 }
 \value{
-a list with five values:
+a list with five elements (seven, if argument print2by2 is set TRUE; see \strong{Details}):
 \enumerate{
 \item sens Sensitivity (a.k.a.: Recall, True Positive Rate).
 \item spec Specificity (a.k.a.: True Negative Rate).
 \item ppv Positive Predictive Value (a.k.a.: Precision).
 \item npv Negative Predictive Value.
 \item br Base rate of the outcome (mean outcome occurrence in the sample).
+\item tbl1 2x2 matrix. Test-theoretic perspective: Specificity in top left cell, sensitivity in bottom right cell.
+\item tbl2 2x2 matrix. Test-practical perspective (apply test in the real world): Negative predictive value (npv) in top left cell, positive predictive value (ppv) in bottom right cell.
 }
 }
 \description{
@@ -28,21 +30,33 @@ Upon receiving two binary variables (only 0 and 1 permitted) of equal length, re
 }
 \details{
 The r in the argument 'xr' stands for response, meaning that the predicted probabilities must have been transformed to a binary outcome, usually by using the default cutoff of 0.5; although it may also be any other cutoff between 0 and 1.
+
+If you wish to additionally print the 2x2 matrix, set the argument 'print2by2' TRUE (default: FALSE).
 }
 \examples{
-\dontrun{
 # Simulate data set with binary outcome
 dfBinary <- quickSim(type="binary")
 # Logistic regression, used as algorithm to predict the response variable
 # (response = estimated probability of outcome being present).
 glmRes <- glm(y~x1+x2,data=dfBinary,family="binomial")
-# Make data.frame with the measured binary outcome and the predicted
+# Extract measured outcome and the predicted probability (fitted values)
+# from the logistic regression output, put both in a data.frame.
+glmDf <- data.frame(measOutcome=dfBinary$y,
+                    fitted=glmRes$fitted.values)
 # binary outcome, based on the default probability threshold of 0.5.
 get2by2Df <- data.frame(
     measuredOutcome=glmDf$measOutcome,
     predictedOutcome=ifelse(glmDf$fitted<.5, 0, 1))
-# Display 2by2 table results in the console.
-get2by2(xr=get2by2Df, measColumn=1, print = TRUE)}
+# Demand 2x2 matrix to be part of the resulting list.
+my2x2 <- get2by2(xr=get2by2Df, measColumn=1, print2by2 = TRUE)
+# Display both 2x2 matrices
+# tbl1: Theoretical perspective, with specificity in top left cell,
+# sensitivity in bottom right cell.
+my2x2$tbl1
+# tbl2: Practical perspective, with negative predictive value (npv)
+# in top left cell, positive predictive value (ppv) in bottom right
+# cell.
+my2x2$tbl2
 }
 \author{
 Marcel Miché
