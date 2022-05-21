@@ -38,7 +38,6 @@ Columns 1 and 2 of the output 'xTrans' from function \code{\link{binBinary}} and
 The returned list will contain 7 items, if function argument 'plot' is set TRUE, if FALSE, it will return the first 5 items (see \strong{Values}).
 }
 \examples{
-\dontrun{
 # Simulate data set with continuous outcome (use all default values)
 dfContinuous <- quickSim()
 # Use multiple linear regression as algorithm to predict the outcome.
@@ -57,7 +56,7 @@ tp <- makeTablePlot(x100c[["xTrans"]][,1:2], measColumn = 1, plot = TRUE)
 # a different format).
 # Display item 6 (plot no.1). Perfect performance if the diagonal cells all
 # contain the value 1.
-tp$rowSumTable_plot}
+tp$rowSumTable_plot
 }
 \references{
 \insertRef{ggplot2Wickham}{predictMe}
