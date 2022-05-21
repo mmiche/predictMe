@@ -109,12 +109,11 @@ transformContinuous <- function(x=NULL, measColumn=NULL, computeRange = TRUE, ra
     # Return linearly transformed x.
     # -----------------------------
     if(length(errorLs)!=0) {
-        message("Values were detected that exceed 0 or 100.")
+        message("Values were detected that exceed 0 or 100. Use list output 'xTrans2' and 'idxExceed' to display these cases.")
         idxTmp <- rep(FALSE, times=nrow(x))
         for(i in 1:length(errorLs)) {
             idxTmp <- idxTmp | errorLs[[i]]
         }
-        print(xout0[idxTmp,])
         return(list(xTrans=xout, xTrans2=xout0, idxExceed=idxTmp))
     } else {
         return(list(xTrans=xout, xTrans2=xout,
