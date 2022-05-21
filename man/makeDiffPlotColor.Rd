@@ -23,7 +23,6 @@ Does the same as makeDiffPlot. However, additionally the difference between bins
 Recommendation: Use some of the ggplot2 options to enhance the plot, e.g., using the function facet_wrap (for an example, see vignette \strong{predictMe Why and how to?, headline 'Function makeDiffPlotColor (to go into more detail)'}).
 }
 \examples{
-\dontrun{
 # Simulate data set with continuous outcome (use all default values)
 dfContinuous <- quickSim()
 # Use multiple linear regression as algorithm to predict the outcome.
@@ -39,7 +38,7 @@ x100c <- binContinuous(x=lmDf, measColumn = 1, binWidth = 20)
 dpc <- makeDiffPlotColor(x100c[["xTrans"]][,5:7], idCol = 2, colorCol=3)
 # dpc is the plot that shows the individual differences, in colorized form.
 # makeDiffPlotColor works the same way if binBinary had be used instead of
-# binContinuous.}
+# binContinuous.
 }
 \references{
 \insertRef{ggplot2Wickham}{predictMe}
