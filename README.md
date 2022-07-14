@@ -2,7 +2,7 @@
 
 R package to visualize individual prediction performance
 
-> 2022-05-14: Submitted package to CRAN, await manual check.
+> 2022-05-44: Published on CRAN.
 
 ## predictMe - Visualize Individual Prediction Performance
 
