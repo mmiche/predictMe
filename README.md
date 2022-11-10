@@ -360,7 +360,7 @@ Output in R console
 [1] 1
 ```
 
-As suspected, one factor level. Better use real data, I guess. But wait. Let's just select more bins, say 25? Then check the number of levels (we want color, damn it!).
+As suspected, one factor level. Let’s select more bins, say 25? Then check the number of levels again.
 
 ```
 # Apply function binBinary, set binWidth to 4.
@@ -374,14 +374,12 @@ Output in R console
 [1] 5
 ```
 
-Was that so hard?
-
 How do the heatmaps now look like?
 
 <img src="vignettes/Fig11.png" style="width:4.16667in" alt="Figure 11" />
 <img src="vignettes/Fig12.png" style="width:4.16667in" alt="Figure 12" />
 
-Interestingly, the more the individual level gets approached, the wider the gaps (lightest blue) along the diagonal become, at least with the simulated data.
+The more the individual level gets approached, the wider the gaps (lightest blue) along the diagonal become, at least with the simulated data. Gaps can sometimes provide valuable clues regarding the data and the investigated research question. At other times, gaps may be meaningless. The point of it appears to be: Without making gaps visible it might remain implicit, whereas making gaps visible suggests to explicitly consider whether the gaps, e.g., their number or their pattern, are meaningful.
 
 #### Function makeDiffPlotColor (b)
 
