@@ -47,7 +47,7 @@ BEWARE: Many researchers are strongly opposed to the binning of continuous data,
 
 ![Figure 1](Fig1.png){width=300pt} ![Figure 2](Fig2.png){width=300pt}
 
-Please pay attention to the legend on top of **each** heatmap: Darkest blue is the highest bin concordance in the entire heatmap. In the left plot (where each row sums up to 1) this is 1 (bottom right), whereas in the right plot (where each column sums up to 1) it is 0.76 (column 1).
+Please pay attention to the legend on top of **each** heatmap: Darkest blue is the overall highest percentage of bin concordance. In the left plot this is 1 (bottom right), whereas in the right plot it is 0.76 (row 2, left).
 
 ## How to?
 
@@ -249,7 +249,7 @@ This difference plot suggests, in combination with the perfect looking introduct
 nlevels(x100b[["xTrans"]][,"absDiffBins"])
 ```
 
-As suspected, one factor level. Better use real data, I guess. But wait. Let's just select more bins, say 25? Then check the number of levels (we want color, damn it!).
+As suspected, one factor level. Let's select more bins, say 25? Then check the number of levels again.
 
 ```{r eval=TRUE}
 # Apply function binBinary, set binWidth to 4.
@@ -258,13 +258,11 @@ x100b4 <- binBinary(x=glmDf, measColumn = 1, binWidth = 4)
 nlevels(x100b4[["xTrans"]][,"absDiffBins"])
 ```
 
-Was that so hard?
-
 How do the heatmaps now look like?
 
 ![Figure 11](Fig11.png){width=300pt} ![Figure 12](Fig12.png){width=300pt}
 
-Interestingly, the more the individual level gets approached, the wider the gaps (lightest blue) along the diagonal become, at least with the simulated data.
+The more the individual level gets approached, the wider the gaps (lightest blue) along the diagonal become, at least with the simulated data. Gaps can sometimes provide valuable clues regarding the data and the investigated research question. At other times, gaps may be meaningless. The point of it appears to be: Without making gaps visible it might remain implicit, whereas making gaps visible suggests to explicitly consider whether the gaps, e.g., their number or their pattern, are meaningful.
 
 #### Function makeDiffPlotColor (b)
 
